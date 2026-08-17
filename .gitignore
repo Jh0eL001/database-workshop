@@ -1,0 +1,15 @@
+# DBeaver workspace metadata
+.dbeaver/
+*.dbeaver-data/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Large dumps or local logs
+*.log
+*.dump
+*.tar.gz

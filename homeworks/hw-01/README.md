@@ -1,13 +1,13 @@
 # Práctica XX: [Título de la Tarea]
 
 - **Materia:** Taller de Base de Datos
-- **Fecha:** YYYY-MM-DD
+- **Fecha:** 2026-08-17
 - **Motor:** PostgreSQL
 
 ---
 
 ## 1. Enunciado y Requerimientos
-[Descripción breve del problema]
+Realizar un Diagrama ER que tenga como ejemplo un IDIOM clasificador.
 
 ---
 

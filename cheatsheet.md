@@ -175,35 +175,6 @@ pgmodeler-cli --input assets/modelo.dbm --export-to-file src/01_schema.sql
 5. Exportar DDL (Ctrl + E -> Exportar a SQL) a: src/01_schema.sql
 ```
 
----
-
-## 6. Estructuras SQL Base (Idiom Clasificador)
-
-### Script DDL y DML
-```sql
--- Gestión de Bases de Datos
-CREATE DATABASE tarea1_db;
-DROP DATABASE IF EXISTS tarea1_db;
-
--- 1. Clasificador (Padre)
-CREATE TABLE religion (
-    id_religion SERIAL PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL UNIQUE
-);
-
--- 2. Entidad Clasificada (Hija con FK obligatoria)
-CREATE TABLE persona (
-    id_persona SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    id_religion INT NOT NULL REFERENCES religion(id_religion)
-);
-
--- Consultas de prueba y limpieza
-SELECT * FROM persona;
-TRUNCATE TABLE persona CASCADE;
-```
-
----
 
 ## 7. Rutas del Sistema
 

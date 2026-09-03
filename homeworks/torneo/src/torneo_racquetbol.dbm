@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="31,0" last-zoom="0.85" max-obj-count="19"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="categoria" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[categoria (padre) ----->  grupo (hija). Idiom Clasificador.]]> </comment>
+	<position x="760" y="120"/>
+	<column name="cod_categoria" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="categoria_pk" type="pk-constr" table="public.categoria">
+		<columns names="cod_categoria" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="torneo" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="360"/>
+	<column name="id_torneo" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="80"/>
+	</column>
+	<column name="fecha_inicio" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="fecha_fin" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="torneo_pk" type="pk-constr" table="public.torneo">
+		<columns names="id_torneo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cancha" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[cancha ---> partido clasificador]]> </comment>
+	<position x="960" y="860"/>
+	<column name="nro_cancha" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="disponible" not-null="true" default-value="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<constraint name="cancha_pk" type="pk-constr" table="public.cancha">
+		<columns names="nro_cancha" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="check_rango_canchas" type="ck-constr" table="public.cancha">
+			<expression> <![CDATA[nro_canchas BETWEEN 1 AND 12]]> </expression>
+	</constraint>
+</table>
+
+<table name="fase" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="860"/>
+	<column name="cod_fase" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="orden_secuencia" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="fase_pk" type="pk-constr" table="public.fase">
+		<columns names="cod_fase" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="persona" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1860" y="20"/>
+	<column name="id_persona" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="ci" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="apellido" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="telefono" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="persona_pk" type="pk-constr" table="public.persona">
+		<columns names="id_persona" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="jugador" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1360" y="20"/>
+	<column name="mano_habil" not-null="true" default-value="&quot;Diestro&quot;">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="club_origen" default-value="&quot;Country Club&quot;">
+		<type name="varchar" length="20"/>
+	</column>
+</table>
+
+<table name="arbitro" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1820" y="320"/>
+	<column name="nivel_certificacion" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="anios_experiencia" default-value="0">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<relationship name="jugador_is_A_persona" type="rel11" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#835e2f"
+	 src-table="public.persona"
+	 dst-table="public.jugador"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="-6.41082" y="11.8213"/>
+	</label>
+</relationship>
+
+<relationship name="arbitro_is_A_persona" type="rel11" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2ec79e"
+	 src-table="public.persona"
+	 dst-table="public.arbitro"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="21.4372" y="-27.9485"/>
+	</label>
+</relationship>
+
+<relationship name="categoria has many jugadores" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#6792ea"
+	 src-table="public.categoria"
+	 dst-table="public.jugador"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="16.1901" y="-57.6749"/>
+	</label>
+</relationship>
+
+<table name="inscripcion" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[tabla composicion para torneo y jugador.]]> </comment>
+	<position x="560" y="700"/>
+	<column name="fecha_inscripcion" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="monto_pago" not-null="true">
+		<type name="numeric" length="8" precision="2"/>
+	</column>
+	<constraint name="inscripcion_pk" type="pk-constr" table="public.inscripcion">
+		<columns names="fecha_inscripcion" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="torneo tiene varias inscripciones" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7886a5"
+	 src-table="public.torneo"
+	 dst-table="public.inscripcion"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="-63.6577" y="1.85152"/>
+	</label>
+</relationship>
+
+<relationship name="jugador_has_many_inscripciones" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#97a183"
+	 src-table="public.jugador"
+	 dst-table="public.inscripcion"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="-178.996" y="92.2515"/>
+	</label>
+</relationship>
+
+<table name="grupo" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[grupo ----> detalle_grupo (Maestro-Detalle)
+relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen a ningun grupo
+]]> </comment>
+	<position x="220" y="0"/>
+	<column name="id_grupo" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nombre_grupo" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="grupo_pk" type="pk-constr" table="public.grupo">
+		<columns names="id_grupo" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="cod_categoria" index="3"/>
+		<object name="id_torneo" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="categoria_fk" index="2"/>
+		<object name="torneo_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="torneo tiene muchos grupos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#386caf"
+	 src-table="public.torneo"
+	 dst-table="public.grupo"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-6.9201" y="-38.353"/>
+	</label>
+</relationship>
+
+<relationship name="categoria_has_many_grupo" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d58c11"
+	 src-table="public.categoria"
+	 dst-table="public.grupo"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="34.4979" y="-98.1928"/>
+	</label>
+</relationship>
+
+<table name="detalle_grupo" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Verificación del Idiom: En detalle_grupo, la columna id_grupo debe aparecer ahora con la etiqueta << pk fk >>, conformando la Clave Primaria Compuesta: (id_grupo, nro_siembra).]]> </comment>
+	<position x="60" y="540"/>
+	<column name="nro_siembra" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="clasificado" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+	</column>
+	<constraint name="detalle_grupo_pk" type="pk-constr" table="public.detalle_grupo">
+		<columns names="nro_siembra" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_grupo" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="grupo_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="grupo_has_many_detalle_grupo" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#75da3f"
+	 src-table="public.grupo"
+	 dst-table="public.detalle_grupo"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="inscripcion_has_many_detalle_grupo" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3ac26f"
+	 src-table="public.inscripcion"
+	 dst-table="public.detalle_grupo"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-70.2832" y="40.369"/>
+	</label>
+</relationship>
+
+<table name="partido" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[el punto de encuentro donde convergen la cancha, la etapa, el árbitro y los dos contrincantes.]]> </comment>
+	<position x="1120" y="400"/>
+	<column name="id_partido" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="fecha_hora" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="partido_pk" type="pk-constr" table="public.partido">
+		<columns names="id_partido" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="chk_jugadores_distintos" type="ck-constr" table="public.partido">
+			<expression> <![CDATA[id_jugador_1 <> id_jugador_2]]> </expression>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="cod_fase" index="3"/>
+		<object name="id_arbitro" index="5"/>
+		<object name="id_grupo" index="4"/>
+		<object name="id_jugador_1" index="6"/>
+		<object name="id_jugador_2" index="7"/>
+		<object name="nro_cancha" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="arbitro_fk" index="4"/>
+		<object name="cancha_fk" index="1"/>
+		<object name="fase_fk" index="2"/>
+		<object name="grupo_fk" index="3"/>
+		<object name="jugador_fk" index="5"/>
+		<object name="jugador_fk1" index="6"/>
+	</customidxs></table>
+
+<relationship name="cancha_has_many_partidos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#4bcda9"
+	 src-table="public.cancha"
+	 dst-table="public.partido"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-99.7596" y="-36.153"/>
+	</label>
+</relationship>
+
+<relationship name="fase_has_many_partidos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#295efa"
+	 src-table="public.fase"
+	 dst-table="public.partido"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="grupo_has_many_partidos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#8acae2"
+	 src-table="public.grupo"
+	 dst-table="public.partido"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="145.998" y="77.7495"/>
+	</label>
+</relationship>
+
+<relationship name="arbitro_has_many_partido" type="rel1n" layers="0"
+	 src-col-pattern="id_arbitro"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a2f346"
+	 src-table="public.arbitro"
+	 dst-table="public.partido"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="jugador_1" type="rel1n" layers="0"
+	 src-col-pattern="id_jugador_1"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d8d916"
+	 src-table="public.jugador"
+	 dst-table="public.partido"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="89.8279" y="-26.953"/>
+	</label>
+</relationship>
+
+<relationship name="jugador_2" type="rel1n" layers="0"
+	 src-col-pattern="id_jugador_2"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#68e9d9"
+	 src-table="public.jugador"
+	 dst-table="public.partido"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-63.7695" y="-46.953"/>
+	</label>
+</relationship>
+
+<table name="set_partido" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[MAESTRO-DETALLE]]> </comment>
+	<position x="1760" y="620"/>
+	<column name="nro_set" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="puntos_j1" not-null="true" default-value="0">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="puntos_j2" not-null="true" default-value="0">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="set_partido_pk" type="pk-constr" table="public.set_partido">
+		<columns names="nro_set" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="chk_rango_sets" type="ck-constr" table="public.set_partido">
+			<expression> <![CDATA[nro_set BETWEEN 1 and 5]]> </expression>
+	</constraint>
+	<constraint name="chk_puntos_no_negativos" type="ck-constr" table="public.set_partido">
+			<expression> <![CDATA[puntos_j1 >= 0 AND puntos_j2 >= 0]]> </expression>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_partido" index="3"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="partido_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="partido_has_many_set_partidos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#13e1bc"
+	 src-table="public.partido"
+	 dst-table="public.set_partido"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="-11.0872" y="-11.5324"/>
+	</label>
+</relationship>
+
+</dbmodel>

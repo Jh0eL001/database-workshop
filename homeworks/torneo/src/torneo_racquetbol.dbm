@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="0,325" last-zoom="0.8" max-obj-count="20"
+<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="126,605" last-zoom="0.9" max-obj-count="27"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -518,7 +518,7 @@ relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen 
 <table name="usuario" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="200" y="860"/>
+	<position x="260" y="1120"/>
 	<column name="id_user" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -539,7 +539,7 @@ relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen 
 <table name="sesion" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="220" y="1180"/>
+	<position x="180" y="1380"/>
 	<column name="nro_sesion" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -574,5 +574,162 @@ relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen 
 		<position x="17.0753" y="-38.1485"/>
 	</label>
 </relationship>
+
+<table name="rol" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="640" y="1120"/>
+	<column name="id_rol" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nombre_rol" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="rol_pk" type="pk-constr" table="public.rol">
+		<columns names="id_rol" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="funcion" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1000" y="1120"/>
+	<column name="id_funcion" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nombre_funcion" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="funcion_pk" type="pk-constr" table="public.funcion">
+		<columns names="id_funcion" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="iu" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1440" y="1120"/>
+	<column name="id_iu" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nombre_form" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="iu_pk" type="pk-constr" table="public.iu">
+		<columns names="id_iu" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="user_rol" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="1400"/>
+	<column name="desde" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="hasta">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="user_rol_pk" type="pk-constr" table="public.user_rol">
+		<columns names="desde" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="usuario_has_many_user_rol" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#20c363"
+	 src-table="public.usuario"
+	 dst-table="public.user_rol"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="50.4599" y="-28.1485"/>
+	</label>
+</relationship>
+
+<relationship name="rol_has_many_user_rol" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ff68ef"
+	 src-table="public.rol"
+	 dst-table="public.user_rol"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="32.0382" y="-28.3485"/>
+	</label>
+</relationship>
+
+<table name="rol_funcion" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="920" y="1400"/>
+</table>
+
+<relationship name="rol_has_many_rol_funcion" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#5cfe35"
+	 src-table="public.rol"
+	 dst-table="public.rol_funcion"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="47.5749" y="-18.3485"/>
+	</label>
+</relationship>
+
+<relationship name="funcion_has_many_rol_funcion" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3e6ea1"
+	 src-table="public.funcion"
+	 dst-table="public.rol_funcion"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="-13.5475" y="-48.5485"/>
+	</label>
+</relationship>
+
+<table name="funcion_iu" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1340" y="1400"/>
+</table>
+
+<relationship name="funcion_has_many_funcion_iu" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#854407"
+	 src-table="public.funcion"
+	 dst-table="public.funcion_iu"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="iu_has_many_funcion_iu" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d56c4d"
+	 src-table="public.iu"
+	 dst-table="public.funcion_iu"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
 
 </dbmodel>

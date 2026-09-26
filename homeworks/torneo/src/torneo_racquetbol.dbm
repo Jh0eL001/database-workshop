@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="126,605" last-zoom="0.9" max-obj-count="27"
+<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="0,483" last-zoom="0.9" max-obj-count="27"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -731,5 +731,40 @@ relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen 
 	 src-required="true" dst-required="false"
 	 identifier="true"
 />
+
+<table name="log" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="200" y="820"/>
+	<column name="id_log" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="fecha_hora" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="nombre_tabla" not-null="true">
+		<type name="varchar" length="40"/>
+	</column>
+	<column name="operacion" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="usuario" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="pid_postgres" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="datos_old">
+		<type name="text" length="0"/>
+		<comment> <![CDATA[es nulo al principio porq en insert no hay estado anterior]]> </comment>
+	</column>
+	<column name="datos_new">
+		<type name="text" length="0"/>
+		<comment> <![CDATA[es nulo porque en DELETE no hay estado nuevo]]> </comment>
+	</column>
+	<constraint name="log_pk" type="pk-constr" table="public.log">
+		<columns names="id_log" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 </dbmodel>

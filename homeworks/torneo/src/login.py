@@ -81,6 +81,7 @@ def autenticar():
                 messagebox.showerror("BLOQUEADO", "El usuario existe pero está inactivo.")
                 return
 
+            # 4. Registrar sesión (Idiom Maestro-Detalle con MAX + 1 y COALESCE)
             query_sesion = """
                 INSERT INTO public.sesion (id_user, nro_sesion, pid_postgres, activo)
                 VALUES (
@@ -95,16 +96,16 @@ def autenticar():
 
             # 5. CONSULTA OPTIMIZADA DE PERMISOS (Con operador IN y sin alias)
             consulta_permisos = """
-                SELECT public.iu.nombre_form
+                SELECT public.iu.nombre_form 
                 FROM public.iu
                 WHERE public.iu.id_iu IN (
-                    SELECT public.funcion_iu.id_iu
+                    SELECT public.funcion_iu.id_iu 
                     FROM public.funcion_iu
                     WHERE public.funcion_iu.id_funcion IN (
-                        SELECT public.rol_funcion.id_funcion
+                        SELECT public.rol_funcion.id_funcion 
                         FROM public.rol_funcion
                         WHERE public.rol_funcion.id_rol IN (
-                            SELECT public.user_rol.id_rol
+                            SELECT public.user_rol.id_rol 
                             FROM public.user_rol
                             WHERE public.user_rol.id_user = %s
                         )

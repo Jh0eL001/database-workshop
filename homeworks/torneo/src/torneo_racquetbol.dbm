@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="0,483" last-zoom="0.9" max-obj-count="27"
+<dbmodel pgmodeler-ver="1.1.0-beta1" use-changelog="false" last-position="0,403" last-zoom="0.8" max-obj-count="27"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -735,7 +735,7 @@ relacion con partido no null porque en octavos, cuartos, demas ya no pertenecen 
 <table name="log" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="200" y="820"/>
+	<position x="1780" y="1260"/>
 	<column name="id_log" not-null="true">
 		<type name="serial" length="0"/>
 	</column>

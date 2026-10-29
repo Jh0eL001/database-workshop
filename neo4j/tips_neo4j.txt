@@ -1,0 +1,93 @@
+======================================================================
+
+CHULETA BÁSICA DE NEO4J Y CYPHER (WSL)
+
+======================================================================
+
+
+
+1. RUTINA DE INICIO DIARIA EN WSL
+
+----------------------------------------------------------------------
+
+Arrancar el motor:   sudo service neo4j start
+
+Ver estado:          sudo service neo4j status
+
+Interfaz visual:     Abrir en Windows -> http://localhost:7474
+
+Usuario/Clave:       neo4j / <tu_contraseña>
+
+
+
+2. CONCEPTOS CLAVE (Diferencias con SQL)
+
+----------------------------------------------------------------------
+
+* No hay múltiples "bases de datos" para crear. Todo vive en 'neo4j'.
+
+* No hay "Tablas", hay "Nodos" (círculos).
+
+* No hay "Claves Foráneas", hay "Relaciones" (flechas).
+
+* Diferenciamos proyectos usando prefijos en las Etiquetas (Ej: Torneo_Jugador).
+
+
+
+3. COMANDOS BÁSICOS CYPHER (Ejecutar en la interfaz web)
+
+----------------------------------------------------------------------
+
+
+
+-- A) LIMPIEZA TOTAL (El "DROP SCHEMA" de los grafos)
+
+-- Borra absolutamente todas las relaciones y luego los nodos.
+
+MATCH (n)
+
+DETACH DELETE n
+
+
+
+-- B) CREAR UN NODO SIMPLE (INSERT)
+
+CREATE (p:Persona {nombre: 'Jhoel', edad: 25})
+
+RETURN p
+
+
+
+-- C) CREAR NODOS Y RELACIÓN AL MISMO TIEMPO
+
+CREATE (j:Jugador {nombre: 'Carlos', nivel: 'A'})-[:JUEGA_EN]->(t:Torneo {nombre: 'Departamental'})
+
+RETURN j, t
+
+
+
+-- D) BUSCAR UN NODO (SELECT)
+
+MATCH (j:Jugador {nombre: 'Carlos'})
+
+RETURN j
+
+
+
+-- E) ACTUALIZAR UN NODO (UPDATE)
+
+-- Busca a Jhoel y le agrega un nuevo atributo
+
+MATCH (p:Persona {nombre: 'Jhoel'})
+
+SET p.nivel = 'Open'
+
+RETURN p
+
+
+
+-- F) BUSCAR TODO LO QUE EXISTA EN LA BD
+
+MATCH (n)
+
+RETURN n
